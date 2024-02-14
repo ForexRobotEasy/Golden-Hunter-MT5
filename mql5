@@ -1,0 +1,182 @@
+
+//+------------------------------------------------------------------+
+//|                                                       Golden Hunter MT5 |
+//|                                      Developed by Forex Robot Easy Team |
+//|                                                         forexroboteasy.com |
+//+------------------------------------------------------------------+
+
+//---- Include necessary libraries
+#include <Trade\Trade.mqh>
+#include <Indicator\Indicator.mqh>
+#include <Timeseries\Timeseries.mqh>
+
+//---- Define input parameters
+input string CurrencyPairs[] = {'EURUSD', 'GBPUSD', 'BTCUSD'};
+input int TimeFrame = PERIOD_M5;
+
+//---- Define indicators
+CIndicator Indicator1;
+CIndicator Indicator2;
+CIndicator Indicator3;
+
+//---- Define trading functions
+CTrade Trade;
+
+//+------------------------------------------------------------------+
+//|                                                    OnTick function |
+//| Function called whenever a new tick is received                   |
+//+------------------------------------------------------------------+
+void OnTick()
+{
+    //---- Check if market activity is high and spreads are low
+    if (IsMarketActive() && IsSpreadLow())
+    {
+        //---- Calculate indicator values
+        double value1 = Indicator1.Calculate();
+        double value2 = Indicator2.Calculate();
+        double value3 = Indicator3.Calculate();
+        
+        //---- Check if all indicators are giving a buy signal
+        if (value1 > 0 && value2 > 0 && value3 > 0)
+        {
+            //---- Open a buy trade
+            Trade.Buy();
+        }
+        
+        //---- Check if all indicators are giving a sell signal
+        else if (value1 < 0 && value2 < 0 && value3 < 0)
+        {
+            //---- Open a sell trade
+            Trade.Sell();
+        }
+    }
+}
+
+//+------------------------------------------------------------------+
+//|                                        IsMarketActive function |
+//| Check if current time is within daylight hours                     |
+//+------------------------------------------------------------------+
+bool IsMarketActive()
+{
+    //---- Get current time
+    datetime currentTime = TimeCurrent();
+    
+    //---- Check if current time is within daylight hours
+    if (Hour(currentTime) >= 8 && Hour(currentTime) < 20)
+        return true;
+    
+    return false;
+}
+
+//+------------------------------------------------------------------+
+//|                                           IsSpreadLow function |
+//| Check if the spread is low for the selected currency pairs          |
+//+------------------------------------------------------------------+
+bool IsSpreadLow()
+{
+    //---- Get current spread for each currency pair
+    double spreadEURUSD = MarketInfo('EURUSD', MODE_SPREAD);
+    double spreadGBPUSD = MarketInfo('GBPUSD', MODE_SPREAD);
+    double spreadBTCUSD = MarketInfo('BTCUSD', MODE_SPREAD);
+    
+    //---- Check if spread is low for all currency pairs
+    if (spreadEURUSD < 2 && spreadGBPUSD < 2 && spreadBTCUSD < 10)
+        return true;
+    
+    return false;
+}
+
+//+------------------------------------------------------------------+
+//|                                                CIndicator class |
+//| Class to calculate indicator values                                |
+//+------------------------------------------------------------------+
+class CIndicator
+{
+private:
+    //---- Define indicator variables
+    
+public:
+    //---- Constructor
+    CIndicator()
+    {
+        //---- Initialize indicator variables
+        
+    }
+    
+    //---- Calculate indicator values
+    double Calculate()
+    {
+        //---- Calculate and return indicator value
+        
+    }
+}
+
+//+------------------------------------------------------------------+
+//|                                                 CTrade class |
+//| Class to perform trading operations                                |
+//+------------------------------------------------------------------+
+class CTrade
+{
+public:
+    //---- Constructor
+    CTrade()
+    {
+        //---- Initialize trading variables
+        
+    }
+    
+    //---- Open a buy trade
+    void Buy()
+    {
+        //---- Perform buy trade operation
+        
+    }
+    
+    //---- Open a sell trade
+    void Sell()
+    {
+        //---- Perform sell trade operation
+        
+    }
+}
+
+//+------------------------------------------------------------------+
+//|                                                  OnInit function |
+//| Function called when the expert is initialized                     |
+//+------------------------------------------------------------------+
+void OnInit()
+{
+    //---- Initialize indicators
+    
+    //---- Initialize trading functions
+    
+}
+
+//+------------------------------------------------------------------+
+//|                                                 OnDeinit function |
+//| Function called when the expert is deinitialized                   |
+//+------------------------------------------------------------------+
+void OnDeinit(const int reason)
+{
+    //---- Cleanup and perform deinitialization operations
+    
+}
+
+//+------------------------------------------------------------------+
+//|                                              OnTimer function |
+//| Function called on a timer event                                   |
+//+------------------------------------------------------------------+
+void OnTimer()
+{
+    //---- Perform necessary operations on timer event
+    
+}
+
+//+------------------------------------------------------------------+
+//|                                                                  |
+//+------------------------------------------------------------------+
+void OnStart()
+{
+    //---- Do nothing on start
+    
+}
